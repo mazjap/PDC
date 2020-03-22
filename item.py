@@ -54,11 +54,8 @@ class Weapon(Item):
         self.effect = effect
         self.totalDamage = self.damage
         if self.name != "Fists" and effect == None:
-            self.getRandomAttr()
-
-    def getRandomAttr(self):
-        attrIndex = int(random() * (len(WeaponEffect)))
-        self.effect = list(WeaponEffect)[attrIndex]
+            attrIndex = int(random() * (len(WeaponEffect)))
+            self.effect = list(WeaponEffect)[attrIndex]
         
     def getName(self):
         return f"{self.effect.value[0]} {self.name}"

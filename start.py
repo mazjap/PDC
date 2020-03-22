@@ -37,6 +37,7 @@ def doAction(action):
         game.performAction()
     elif int(action) in range(1, 10):
         game.switchWeapon(int(action) - 1)
+        game.updateMap(False)
 
 startScreen = ""
 with open("lambda_ascii_shield.txt", "r") as shield:
@@ -53,6 +54,7 @@ gameActions = ["w", "a", "s", "d", " ", "A", "B", "C", "D", "1", "2", "3", "4", 
 
 play = True
 while(True):
+    print("\x1b[8;38;88t")
     action = getch()
     print(action)
     if action == '\n':
@@ -69,7 +71,7 @@ while(play):
     if action == "":
         continue
     elif action == "x":
-        print(f"{TermColors.HEADER}Ending game{TermColors.ENDC}")
+        # print(f"{TermColors.HEADER}Ending game{TermColors.ENDC}")
         break
     elif action in gameActions:
         doAction(action)

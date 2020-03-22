@@ -30,9 +30,9 @@ class Game:
         if isTick:
             self.updateEntities()
             self.updateItems()
-            print("Tick")
-        else:
-            print("Not tick")
+            # print("Tick")
+        # else:
+            # print("Not tick")
         printMap = f"\n{TermColors.OKGREEN}{self.player}{TermColors.ENDC}\n"
         for arr in self.map:
             printMap += self.convert(arr)
@@ -64,18 +64,18 @@ class Game:
         elif direction == Direction.RIGHT:
             location = (location[0] + 2, location[1])
         for item in self.items:
-            print(item.getName())
-            itemLocation = item.getLocation()
-            print(f"item x: {itemLocation[0]}, item y: {itemLocation[1]}, statement evaluates to {itemLocation[0] == location[0]//2 + 1 and itemLocation[1] == location[1]}")
-            if itemLocation[0] == location[0] and itemLocation[1] == location[1]:
-                print("We did it")
-                self.getItem(item)
+            if item is not None:
+                itemLocation = item.getLocation()
+                # print(f"item x: {itemLocation[0]}, item y: {itemLocation[1]}, statement evaluates to {itemLocation[0] == location[0]//2 + 1 and itemLocation[1] == location[1]}")
+                if itemLocation[0] == location[0] and itemLocation[1] == location[1]:
+                    # print("We did it")
+                    self.getItem(item)
         for index, enemy in enumerate(self.enemies):
             enemyLocation = enemy.getCurrentLocation()
-            print(f"Enemy health: {enemy.getHealth()}, enemy location: {enemyLocation}, location in front of player: ({location[0]//2 + 1}, {location[1]})")
+            # print(f"Enemy health: {enemy.getHealth()}, enemy location: {enemyLocation}, location in front of player: ({location[0]//2 + 1}, {location[1]})")
             if enemyLocation[0] == location[0]//2 + 1 and enemyLocation[1] == location[1]:
                 enemy.removeHealth(self.player.getDamage())
-                print(enemy.checkIfDead())
+                # print(enemy.checkIfDead())
                 if enemy.checkIfDead():
                     self.removeEnemy(enemy, index)
                 self.updatePlayer(self.player.getDirection(), True)
@@ -90,7 +90,7 @@ class Game:
         self.updatePlayer(self.player.getDirection(), True)
 
     def removeEnemy(self, enemy, index):
-        print("Dead")
+        # print("Dead")
         self.items.append(enemy.dropItem())
         del(self.enemies[index])
 
@@ -100,7 +100,8 @@ class Game:
 
     def updateItems(self):
         for item in self.items:
-            self.map[item.getY()][item.getX()] = "+"
+            if item is not None:
+                self.map[item.getY()][item.getX()] = "+"
 
     def split(self, str):
         return [char for char in str]
